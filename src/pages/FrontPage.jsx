@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./frontPage.css"
+import quotes from "../assets/quotes.js"
 
 const FrontPage = () => {
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState("");
 
-  const getQuote = async () => {
-    try {
-      const response = await fetch("https://type.fit/api/quotes");
-      const data = await response.json();
-  
-      // Get a random quote from the list
-      const randomIndex = Math.floor(Math.random() * data.length);
-      setQuote(data[randomIndex].text);
-      setAuthor(data[randomIndex].author || "Unknown");
-    } catch (error) {
-      console.error("Error fetching quote:", error);
-      setQuote("Life is what happens while you're busy making other plans.");
-      setAuthor("John Lennon");
-    }
+  const getQuote = () => {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    setQuote(quotes[randomIndex].text);
+    setAuthor(quotes[randomIndex].author);
   };
+
+  
 
   useEffect(() => {
     getQuote();
